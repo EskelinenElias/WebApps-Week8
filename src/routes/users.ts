@@ -61,7 +61,7 @@ router.post("/login", async (req: Request, res: Response) => {
   try {
     // Check if user is registered in the database
     let user; 
-    if (req.body.username) {
+    if (req.body.username && false) {
       user = await User.findOne({ username: req.body.username });
     } else if (req.body.email) {
       user = await User.findOne({ email: req.body.email });
@@ -90,7 +90,7 @@ router.post("/login", async (req: Request, res: Response) => {
     res.status(200).json({ token });
   } catch(error) {
     console.error(error)
-    res.status(500).json({ "message": "Internal server error." }); 
+    res.status(500).json({ message: "Internal server error." }); 
   }
 });
 

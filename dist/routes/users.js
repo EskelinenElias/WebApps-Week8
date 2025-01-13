@@ -64,7 +64,7 @@ router.post("/login", async (req, res) => {
     try {
         // Check if user is registered in the database
         let user;
-        if (req.body.username) {
+        if (req.body.username && false) {
             user = await User_1.User.findOne({ username: req.body.username });
         }
         else if (req.body.email) {
@@ -91,7 +91,7 @@ router.post("/login", async (req, res) => {
     }
     catch (error) {
         console.error(error);
-        res.status(500).json({ "message": "Internal server error." });
+        res.status(500).json({ message: "Internal server error." });
     }
 });
 exports.default = router;
