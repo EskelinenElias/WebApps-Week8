@@ -54,7 +54,7 @@ async (req, res) => {
 router.get("/list", async (req, res) => {
     try {
         // Fetch users from the database
-        const users = await User_1.User.findOne({}, { password: 0 });
+        const users = await User_1.User.find({});
         res.status(200).json({ users: users });
         return;
     }

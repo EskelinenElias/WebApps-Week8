@@ -53,7 +53,7 @@ router.post("/register",
 router.get("/list", async (req: Request, res: Response) => {
   try {
     // Fetch users from the database
-    const users = await User.findOne({}, { password: 0 }); 
+    const users = await User.find({}); 
     res.status(200).json({users: users})
     return; 
   } catch (error) {

@@ -46,7 +46,7 @@ async function deleteTopic(token, id) {
     throw new Error("Failed to delete topic: Invalid parameters");
   }
   // Send delete request to delete topic
-  const response = await fetch(`/api/topic/${topicId}`, {
+  const response = await fetch(`/api/topic/${id}`, {
     method: 'DELETE',
     headers: {
       Authorization: `Bearer ${token}`,

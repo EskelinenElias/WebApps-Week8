@@ -18,22 +18,23 @@ function displayTopics(topics) {
       <button class="delete-topic" data-id="${topic._id}">Delete</button>
     `;
     topicsContainer.appendChild(topicContainer);
-    // Attach delete handlers
-    document.querySelectorAll('.delete-topic').forEach((button) => {
-      button.addEventListener('click', (event) => {
-        // Get token from local storage
-        const token = localStorage.getItem('token');
-        // Get topic id 
-        const topicId = event.target.getAttribute('data-id');
-        try {
-          // Delete topic
-          deleteTopic(token, topicId); 
-        } catch(error) {
-          // Alert user
-          alert("Failed to delete topic."); 
-          console.error(error); 
-        }
-      });
+  }); 
+  // Attach delete handlers
+  document.querySelectorAll('.delete-topic').forEach((button) => {
+    // Get topic id 
+    const topicId = button.getAttribute('data-id');
+    console.log(topicId)
+    button.addEventListener('click', () => {
+      // Get token from local storage
+      const token = localStorage.getItem('token');
+      try {
+        // Delete topic
+        deleteTopic(token, topicId); 
+      } catch(error) {
+        // Alert user
+        alert("Failed to delete topic."); 
+        console.error(error); 
+      }
     });
   });
 }
