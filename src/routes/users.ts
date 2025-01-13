@@ -15,11 +15,11 @@ router.post("/register", async (req: Request, res: Response) => {
     ]});
     if (existingUser) {
       if (existingUser.username === req.body.username) {
-        res.status(403).json({ username: `User with username '${req.body.username}' already exists.` }); 
+        res.status(403).json({ username: `Username already in use.` }); 
         return;
       }
       if (existingUser.email === req.body.email) {
-        res.status(403).json({ username: `User with email '${req.body.email}' already exists.` }); 
+        res.status(403).json({ email: `Email already in use.` }); 
         return;
       }
     }
