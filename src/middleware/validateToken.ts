@@ -8,8 +8,11 @@ interface CustomRequest extends Request {
 function authenticateUser(req: CustomRequest, res: Response, next: NextFunction) {
   // Check token
   const token: string | undefined = req.header('authorization')?.split(" ")[1]
+  console.log(req.header('authorization'))
+  console.log("token", token)
   if (!token) {
-    res.status(401).json({ message: "Access denied, missing token" }); 
+    console.error("No token")
+    res.status(401).json({ message: "Access denied, missing token", number: "1"}); 
     return; 
   }
   try {
@@ -17,7 +20,8 @@ function authenticateUser(req: CustomRequest, res: Response, next: NextFunction)
     req.user = verified
     next()
   } catch (error: any) {
-    res.status(400).json({message: "Access denied, missing token"})
+    console.error(error)
+    res.status(400).json({ message: "Access denied, missing token", number: "2" });
   }
 }
 

@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const User_1 = require("../models/User");
 const validateToken_1 = require("../middleware/validateToken");
 const Topic_1 = require("../models/Topic");
 const router = (0, express_1.Router)();
@@ -9,8 +8,9 @@ const router = (0, express_1.Router)();
 router.get("/topics", async (req, res) => {
     try {
         // Fetch topics from the database
-        const topics = await User_1.User.findOne({}, { password: 0 });
-        res.status(200).json({ topics: topics });
+        const topics = await Topic_1.Topic.find({});
+        console.log(topics);
+        res.status(200).json({ topics });
         return;
     }
     catch (error) {
@@ -27,7 +27,7 @@ validateToken_1.authenticateUser,
 async (req, res) => {
     // Parse request
     if (!req.user) {
-        res.status(400).json({ message: "Access denied: missing token" });
+        res.status(400).json({ message: "Access denied, reason unknown" });
         return;
     }
     const { title, content } = req.body;

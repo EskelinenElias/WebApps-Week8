@@ -13,8 +13,9 @@ const router = Router();
 router.get("/topics", async (req: Request, res: Response) => {
   try {
     // Fetch topics from the database
-    const topics = await User.findOne({}, { password: 0 }); 
-    res.status(200).json({ topics: topics }); 
+    const topics = await Topic.find({}); 
+    console.log(topics)
+    res.status(200).json({ topics }); 
     return; 
   } catch (error) {
     console.error(`Error fetching topics: ${error}`);
@@ -31,7 +32,7 @@ router.post("/topic",
   async (req: CustomRequest, res: Response) => {
     // Parse request
     if (!req.user) {
-      res.status(400).json({ message: "Access denied: missing token" }); 
+      res.status(400).json({ message: "Access denied, reason unknown" }); 
       return; 
     }
     const { title, content } = req.body; 

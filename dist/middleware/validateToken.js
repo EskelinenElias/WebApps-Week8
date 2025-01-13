@@ -9,8 +9,11 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 function authenticateUser(req, res, next) {
     // Check token
     const token = req.header('authorization')?.split(" ")[1];
+    console.log(req.header('authorization'));
+    console.log("token", token);
     if (!token) {
-        res.status(401).json({ message: "Access denied, missing token" });
+        console.error("No token");
+        res.status(401).json({ message: "Access denied, missing token", number: "1" });
         return;
     }
     try {
@@ -19,7 +22,8 @@ function authenticateUser(req, res, next) {
         next();
     }
     catch (error) {
-        res.status(400).json({ message: "Access denied, missing token" });
+        console.error(error);
+        res.status(400).json({ message: "Access denied, missing token", number: "2" });
     }
 }
 function authenticateAdmin(req, res, next) {

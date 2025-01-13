@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <script src="register.js" defer></script>
+  <script src="login.js" defer></script>
+</head>
+<body>
+  <!-- Header Content -->
+  <header>
+    <nav>
+      <div class="nav-wrapper">
+        <!-- Logo -->
+        <a href="#" class="brand-logo">Topics</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <!-- Link to Register Form -->
+          <li><a href="index.html">Home</a></li>
+          <!-- Login Form -->
+          <li><form id="loginForm">
+            <input type="email" id="loginEmail" name="email" required>
+            <label for="loginEmail">Email</label>
+            <input type="password" id="loginPassword" name="password" required>
+            <label for="loginPassword">Password</label>
+            <button class="btn waves-effect waves-light" type="submit">Login</button>
+          </form></li>
+        </ul>
+      </div>
+    </nav>
+  </header>   
+  <!-- Main Content -->
+  <main>
+    <div class="container">
+      <h3>Registration</h3>
+      <form id="registerForm">
+          <!-- Email input field -->
+          <input type="email" id="email" name="email" required>
+          <label for="email">Email</label>
+          <!-- Username input field -->
+          <input type="text" id="username" name="username" required>
+          <label for="username">Username</label>
+          <!-- Password input field -->
+          <input type="password" id="password" name="password" required>
+          <label for="password">Password</label>
+          <!-- Admin checkbox -->
+          <input type="checkbox" id="isAdmin" name="isAdmin" />
+          <span>Is Admin</span>
+          <!-- Submit button -->
+          <button class="btn waves-effect waves-light" type="submit">Register</button>
+      </form>
+    </div>
+  </main>
+</body>
+<script>
+// Add functionality to the login form
+document
+  .getElementById("loginForm")
+  .addEventListener("submit", async (event) => { login(event) }); 
+</script>
+</html>
