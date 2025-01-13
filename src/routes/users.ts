@@ -67,7 +67,11 @@ router.post("/login", async (req: Request, res: Response) => {
       user = await User.findOne({ email: req.body.email });
     }
     if (!user) {
-      res.status(404).json({ message: "User not found" });
+      res.status(404).json({ 
+        message: "User not found", 
+        email: `${req.body.email}`, 
+        username: `${req.body.username}` 
+      });
       return;
     }
     // Check if the password is correct
