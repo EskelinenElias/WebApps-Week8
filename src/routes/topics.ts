@@ -5,6 +5,7 @@ import jwt from "jsonwebtoken";
 import { validateReqistration, validateLogin, handleValidationErrors } from "../validators/inputValidation";
 import { CustomRequest, authenticateUser, authenticateAdmin } from "../middleware/validateToken";
 import { Topic, ITopic } from "../models/Topic";
+import mongoose from "mongoose";
 
 const router = Router();
 
@@ -54,7 +55,7 @@ router.delete("/topic/:id",
   // Function to delete a topic as an admin
   async (req: CustomRequest, res: Response) => {
     // Parse request
-    const id = req.params; 
+    const { id } = req.params;
     try {
       // Find topic by id and delete it
       const topic = await Topic.findByIdAndDelete(id); 

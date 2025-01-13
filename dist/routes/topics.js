@@ -50,7 +50,7 @@ validateToken_1.authenticateAdmin,
 // Function to delete a topic as an admin
 async (req, res) => {
     // Parse request
-    const id = req.params;
+    const { id } = req.params;
     try {
         // Find topic by id and delete it
         const topic = await Topic_1.Topic.findByIdAndDelete(id);
