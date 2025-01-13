@@ -2,25 +2,17 @@ import { Router, Request, Response, NextFunction} from "express";
 import bcrypt from 'bcryptjs';
 import { User, IUser } from "../models/User";
 import jwt from "jsonwebtoken";
-import { body, Result, ValidationError, validationResult  } from 'express-validator/';
+import { handleValidationErrors, validateInputs } from "../validators/inputValidation";
 
 const router = Router();
 
 // POST route to register an user
 router.post("/register", 
-  // Input validation
-  body("username").trim().escape().isLength({min: 3}),
-  body("email").trim().normalizeEmail().isEmail(),
-  body("password").isLength({min: 8}).matches(/[A-Z]/).matches(/[a-z]/).matches(/[0-9]/).matches(/[#?!@$%^&*-]/),
+  // Input validation and validation error handling
+  validateInputs,
+  handleValidationErrors,
   // Registration function
-  async (req: Request, res: Response) => {
-    // Check validation errors
-    const errors: Result<ValidationError> = validationResult(req)
-    if(!errors.isEmpty()) {
-      console.error(errors);
-      res.status(400).json({ errors: errors.array() });
-      return; 
-    }
+  async (req: Request, res: Response) => {    
     try {
       // Check if a user with the given username or email already exists in the database
       const existingUser: IUser | null = await User.findOne({ $or: [
@@ -73,19 +65,11 @@ router.get("/list", async (req: Request, res: Response) => {
 
 // POST route to login 
 router.post("/login", 
-  // Input validation
-  body("username").trim().escape().isLength({min: 3}),
-  body("email").trim().escape().normalizeEmail().isEmail(),
-  body("password").isLength({min: 8}).matches(/[A-Z]/).matches(/[a-z]/).matches(/[0-9]/).matches(/[#?!@$%^&*-]/),
+  // Input validation and validation error handling
+  validateInputs,
+  handleValidationErrors,
   // Login function 
   async (req: Request, res: Response) => {
-    // Check validation errors
-    const errors: Result<ValidationError> = validationResult(req)
-    if(!errors.isEmpty()) {
-      console.error(errors);
-      res.status(400).json({ errors: errors.array() });
-      return; 
-    }
     try {
       // Check if user is registered in the database
       let user; 

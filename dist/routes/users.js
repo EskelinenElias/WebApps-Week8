@@ -7,21 +7,14 @@ const express_1 = require("express");
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const User_1 = require("../models/User");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const express_validator_1 = require("express-validator/");
+const inputValidation_1 = require("../validators/inputValidation");
 const router = (0, express_1.Router)();
 // POST route to register an user
 router.post("/register", 
-// Input validation
-(0, express_validator_1.body)("username").trim().escape().isLength({ min: 3 }), (0, express_validator_1.body)("email").trim().normalizeEmail().isEmail(), (0, express_validator_1.body)("password").isLength({ min: 8 }).matches(/[A-Z]/).matches(/[a-z]/).matches(/[0-9]/).matches(/[#?!@$%^&*-]/), 
+// Input validation and validation error handling
+inputValidation_1.validateInputs, inputValidation_1.handleValidationErrors, 
 // Registration function
 async (req, res) => {
-    // Check validation errors
-    const errors = (0, express_validator_1.validationResult)(req);
-    if (!errors.isEmpty()) {
-        console.error(errors);
-        res.status(400).json({ errors: errors.array() });
-        return;
-    }
     try {
         // Check if a user with the given username or email already exists in the database
         const existingUser = await User_1.User.findOne({ $or: [
@@ -73,17 +66,10 @@ router.get("/list", async (req, res) => {
 });
 // POST route to login 
 router.post("/login", 
-// Input validation
-(0, express_validator_1.body)("username").trim().escape().isLength({ min: 3 }), (0, express_validator_1.body)("email").trim().escape().normalizeEmail().isEmail(), (0, express_validator_1.body)("password").isLength({ min: 8 }).matches(/[A-Z]/).matches(/[a-z]/).matches(/[0-9]/).matches(/[#?!@$%^&*-]/), 
+// Input validation and validation error handling
+inputValidation_1.validateInputs, inputValidation_1.handleValidationErrors, 
 // Login function 
 async (req, res) => {
-    // Check validation errors
-    const errors = (0, express_validator_1.validationResult)(req);
-    if (!errors.isEmpty()) {
-        console.error(errors);
-        res.status(400).json({ errors: errors.array() });
-        return;
-    }
     try {
         // Check if user is registered in the database
         let user;
