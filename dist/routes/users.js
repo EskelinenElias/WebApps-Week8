@@ -7,9 +7,14 @@ const express_1 = require("express");
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const User_1 = require("../models/User");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const express_validator_1 = require("express-validator/");
 const router = (0, express_1.Router)();
 // POST route to register an user
-router.post("/register", async (req, res) => {
+router.post("/register", 
+// Input validation
+(0, express_validator_1.body)("username").trim().escape().isLength({ min: 3 }), (0, express_validator_1.body)("email").trim().normalizeEmail().isEmail(), (0, express_validator_1.body)("password").isLength({ min: 8 }).matches(/[A-Z]/).matches(/[a-z]/).matches(/[0-9]/).matches(/[#?!@$%^&*-]/), 
+// Registration function
+async (req, res) => {
     try {
         // Check if a user with the given username or email already exists in the database
         const existingUser = await User_1.User.findOne({ $or: [
@@ -60,7 +65,11 @@ router.get("/list", async (req, res) => {
     }
 });
 // POST route to login 
-router.post("/login", async (req, res) => {
+router.post("/login", 
+// Input validation
+(0, express_validator_1.body)("username").trim().escape().isLength({ min: 3 }), (0, express_validator_1.body)("email").trim().normalizeEmail().isEmail(), (0, express_validator_1.body)("password").isLength({ min: 8 }).matches(/[A-Z]/).matches(/[a-z]/).matches(/[0-9]/).matches(/[#?!@$%^&*-]/), 
+// Login function 
+async (req, res) => {
     try {
         // Check if user is registered in the database
         let user;
@@ -87,7 +96,11 @@ router.post("/login", async (req, res) => {
         // Create a JWT token
         const token = jsonwebtoken_1.default.sign({ _id: user._id, username: user.username, isAdmin: user.isAdmin }, process.env.SECRET, { expiresIn: "1h" });
         // Respond with the token
-        res.status(200).json({ token });
+        res.status(200).json({
+            token,
+            username: req.body.username,
+            email: req.body.email
+        });
     }
     catch (error) {
         console.error(error);

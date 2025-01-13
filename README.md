@@ -8,3 +8,4 @@ npm install mongoose @types/mongoose
 npm install dotenv @types/dotenv
 npm install bcryptjs @types/bcryptjs
 npm install jsonwebtoken @types/jsonwebtoken
+npm install express-validator @types/express-validator
