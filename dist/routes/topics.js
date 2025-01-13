@@ -35,7 +35,7 @@ async (req, res) => {
     try {
         // Create a new topic
         const newTopic = await Topic_1.Topic.create({ title, content, username });
-        res.status(201).json(newTopic);
+        res.status(200).json(newTopic);
     }
     catch (error) {
         // Error occurred
