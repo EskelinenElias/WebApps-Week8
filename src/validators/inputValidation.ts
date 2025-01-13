@@ -1,7 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import { body, Result, ValidationError, validationResult } from 'express-validator/';
 
-const validateInputs = [
+// Registration input validation
+const validateReqistration = [
   
   // Username validation
   body("username")
@@ -32,6 +33,23 @@ const validateInputs = [
 
 ];
 
+// Login input validation
+const validateLogin = [
+  
+  // Email validation
+  body("email")
+    .trim()
+    .normalizeEmail()
+    .isEmail()
+    .withMessage("Invalid email address"),
+  
+  // Password validation
+  body("password")
+    .notEmpty()
+    .withMessage("Password is required.")
+
+]
+
 function handleValidationErrors(req: Request, res: Response, next: NextFunction) {
   const errors: Result<ValidationError> = validationResult(req)
   if(!errors.isEmpty()) {
@@ -42,4 +60,4 @@ function handleValidationErrors(req: Request, res: Response, next: NextFunction)
   next(); 
 }
 
-export { validateInputs, handleValidationErrors };
+export { validateReqistration, validateLogin, handleValidationErrors };

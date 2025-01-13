@@ -2,14 +2,14 @@ import { Router, Request, Response, NextFunction} from "express";
 import bcrypt from 'bcryptjs';
 import { User, IUser } from "../models/User";
 import jwt from "jsonwebtoken";
-import { handleValidationErrors, validateInputs } from "../validators/inputValidation";
+import { validateReqistration, validateLogin, handleValidationErrors } from "../validators/inputValidation";
 
 const router = Router();
 
 // POST route to register an user
 router.post("/register", 
   // Input validation and validation error handling
-  validateInputs,
+  validateReqistration,
   handleValidationErrors,
   // Registration function
   async (req: Request, res: Response) => {    
@@ -66,7 +66,7 @@ router.get("/list", async (req: Request, res: Response) => {
 // POST route to login 
 router.post("/login", 
   // Input validation and validation error handling
-  validateInputs,
+  validateLogin,
   handleValidationErrors,
   // Login function 
   async (req: Request, res: Response) => {

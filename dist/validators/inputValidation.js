@@ -1,9 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.validateInputs = void 0;
+exports.validateLogin = exports.validateReqistration = void 0;
 exports.handleValidationErrors = handleValidationErrors;
 const express_validator_1 = require("express-validator/");
-const validateInputs = [
+// Registration input validation
+const validateReqistration = [
     // Username validation
     (0, express_validator_1.body)("username")
         .trim()
@@ -29,7 +30,21 @@ const validateInputs = [
         .matches(/[#?!@$%^&*-]/)
         .withMessage("Password must contain at least 1 special character (#?!@$%^&*-)"),
 ];
-exports.validateInputs = validateInputs;
+exports.validateReqistration = validateReqistration;
+// Login input validation
+const validateLogin = [
+    // Email validation
+    (0, express_validator_1.body)("email")
+        .trim()
+        .normalizeEmail()
+        .isEmail()
+        .withMessage("Invalid email address"),
+    // Password validation
+    (0, express_validator_1.body)("password")
+        .notEmpty()
+        .withMessage("Password is required.")
+];
+exports.validateLogin = validateLogin;
 function handleValidationErrors(req, res, next) {
     const errors = (0, express_validator_1.validationResult)(req);
     if (!errors.isEmpty()) {

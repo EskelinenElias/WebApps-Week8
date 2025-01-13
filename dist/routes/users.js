@@ -12,7 +12,7 @@ const router = (0, express_1.Router)();
 // POST route to register an user
 router.post("/register", 
 // Input validation and validation error handling
-inputValidation_1.validateInputs, inputValidation_1.handleValidationErrors, 
+inputValidation_1.validateReqistration, inputValidation_1.handleValidationErrors, 
 // Registration function
 async (req, res) => {
     try {
@@ -67,7 +67,7 @@ router.get("/list", async (req, res) => {
 // POST route to login 
 router.post("/login", 
 // Input validation and validation error handling
-inputValidation_1.validateInputs, inputValidation_1.handleValidationErrors, 
+inputValidation_1.validateLogin, inputValidation_1.handleValidationErrors, 
 // Login function 
 async (req, res) => {
     try {
