@@ -16,7 +16,7 @@ const UserSchema = new Schema<IUser>({
   isAdmin: { type: Boolean, require: true}
 });
 
-const User = model<IUser>("offers", UserSchema);
+const User = model<IUser>("user", UserSchema);
 
 export { User, IUser };
 

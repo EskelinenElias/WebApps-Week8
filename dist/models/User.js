@@ -8,6 +8,6 @@ const UserSchema = new mongoose_1.Schema({
     email: { type: String, require: true },
     isAdmin: { type: Boolean, require: true }
 });
-const User = (0, mongoose_1.model)("offers", UserSchema);
+const User = (0, mongoose_1.model)("user", UserSchema);
 exports.User = User;
 // eof
