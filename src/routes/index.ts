@@ -1,11 +1,13 @@
 import { Router } from "express";
-import userRouter from './users';
+import usersRouter from './users';
+import topicsRouter from './topics'; 
 
 // Create router
 const router = Router();
 
 // Add routes
-router.use("/api/user", userRouter);
+router.use("/api/user", usersRouter);
+router.use("/api", topicsRouter); 
 
 export default router;
 

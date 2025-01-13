@@ -73,7 +73,7 @@ async (req, res) => {
     try {
         // Check if user is registered in the database
         let user;
-        if (req.body.username && false) {
+        if (req.body.username) {
             user = await User_1.User.findOne({ username: req.body.username });
         }
         else if (req.body.email) {
