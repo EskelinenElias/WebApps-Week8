@@ -60,7 +60,12 @@ router.get("/list", async (req: Request, res: Response) => {
 router.post("/login", async (req: Request, res: Response) => {
   try {
     // Check if user is registered in the database
-    const user = await User.findOne({ email: req.body.email });
+    let user; 
+    if (req.body.username) {
+      user = await User.findOne({ username: req.body.username });
+    } else if (req.body.email) {
+      user = await User.findOne({ email: req.body.email });
+    }
     if (!user) {
       res.status(404).json({ message: "User not found" });
       return;
